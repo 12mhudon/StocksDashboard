@@ -66,17 +66,6 @@
         var displaylastClose = document.getElementById("display-last-closing-price")
         var displayChange = document.getElementById("display-price-change")
 
-        function imageSelect(myImg) {
-            var img = document.createElement("IMG");
-            img.src = "images/"+myImg;
-            document.getElementById("outputs").appendChild(img);
-        }
-        if (Change<0) {
-            imageSelect('nostonks.jpeg');
-        } else {
-            imageSelect('stonks.jpeg');
-        }
-
         // reusable function for chart display:
         function updateDashboard() {
             console.log("--------------------")
