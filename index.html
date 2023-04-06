@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Stocks Dashboard</title>
+    <title>Mike's Stonks Dashboard</title>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-98KLK18YDW"></script>
@@ -23,7 +23,7 @@
 
     <div>
         <label>AlphaVantage API Key:</label>
-        <input type="text" name="api-key" id="my-api-key" placeholder="demo" value="demo">
+        <input type="text" name="api-key" id="my-api-key" placeholder="OYVQ0C5GE8ZN5ICF" value="OYVQ0C5GE8ZN5ICF">
         <br>
 
         <label>Stock:</label>
@@ -32,6 +32,7 @@
             <option value="GOOG">Google (GOOGL)</option>
             <option value="AAPL">Apple (AAPL)</option>
             <option value="TSLA">Tesla (TSLA)</option>
+            <option value="GME">GameStop (GME)</option>
         </select>
         <br>
 
@@ -45,6 +46,9 @@
     <div>
         <p>Selected Stock: <span id="display-stock-symbol">_____________</span></p>
         <p>Latest (Adjusted) Closing Price: <span id="display-latest-closing-price">__________</span></p>
+        <p>Last (Adjusted) Closing Price: <span id="display-last-closing-price">__________</span></p>
+        <p>Price Percent Change: <span id="display-price-change">__________</span></p>
+        <img id="img" src="imageshown">
     </div>
 
     <div id="dataviz-container"></div>
@@ -62,6 +66,16 @@
         // display elements:
         var displaySymbol = document.getElementById("display-stock-symbol")
         var displayLatestClose = document.getElementById("display-latest-closing-price")
+        var displaylastClose = document.getElementById("display-last-closing-price")
+        var displayChange = document.getElementById("display-price-change")
+
+        if (Change<0) {
+            var imageshown = "https://github.com/12mhudon/StocksDashboard/images/nostonks.jpeg"
+        } else {
+            var imageshown = "https://github.com/12mhudon/StocksDashboard/images/stonks.jpeg"
+        }
+
+        imageshown = document.getElementById("img").src; 
 
         // reusable function for chart display:
         function updateDashboard() {
@@ -94,10 +108,18 @@
                 var latestClose = closingPrices[0]
                 var latestCloseUSD = "$" + latestClose.toFixed(2) // formatting the number with dollar sign and rounding to two decimal places
                 console.log("LATEST CLOSE:", latestCloseUSD)
-
+                var lastClose = closingPrices[1]
+                var lastCloseUSD = "$" + lastClose.toFixed(2)
+                console.log("LAST CLOSE:", lastCloseUSD)
+                var Change = 100*(latestClose - lastClose)/lastClose 
+                var ChangePercent = Change.toFixed(2) + "%"
+                console.log("PERCENT CHANGE:", ChangePercent)
+              
                 // updating the contents of the page:
                 displaySymbol.innerText = symbol
                 displayLatestClose.innerText = latestCloseUSD
+                displaylastClose.innerText = lastCloseUSD
+                displayChange.innerText = ChangePercent
 
                 // charting the data (see https://plotly.com/javascript/line-charts/):
                 var title = "Daily Closing Prices for Stock: " + symbol
@@ -114,15 +136,15 @@
             })
 
             // send event to GA (requires gtag setup in <head> section):
-            //gtag("event", "chart_update", {"symbol": symbol})
+            gtag("event", "chart_update", {"symbol": symbol})
         }
 
 
         // trigger an initial chart update when the page loads:
-        //updateDashboard()
+        updateDashboard()
 
         // trigger a subsequent chart update whenever the button is clicked:
-        //myButton.addEventListener("click", updateDashboard, false)
+        myButton.addEventListener("click", updateDashboard, false)
 
 
 
