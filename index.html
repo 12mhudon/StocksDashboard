@@ -43,12 +43,11 @@
 
     <h2>Outputs</h2>
 
-    <div>
+    <div id="outputs">
         <p>Selected Stock: <span id="display-stock-symbol">_____________</span></p>
         <p>Latest (Adjusted) Closing Price: <span id="display-latest-closing-price">__________</span></p>
         <p>Last (Adjusted) Closing Price: <span id="display-last-closing-price">__________</span></p>
         <p>Price Percent Change: <span id="display-price-change">__________</span></p>
-        <img id="img" src="imageshown">
     </div>
 
     <div id="dataviz-container"></div>
@@ -66,13 +65,17 @@
         var displayLatestClose = document.getElementById("display-latest-closing-price")
         var displaylastClose = document.getElementById("display-last-closing-price")
         var displayChange = document.getElementById("display-price-change")
-        
-        //if (Change<0) {
-        //    var imageshown = "https://12mhudon.github.io/StocksDashboard/images/nostonks.jpeg"
-        //} else {
-        //    var imageshown = "https://12mhudon.github.io/StocksDashboard/images/stonks.jpeg"
-        //}
-        //document.getElementById("img").src = imageshown
+
+        function imageSelect(Img) {
+            var img = document.createElement("IMG");
+            img.src = "images/"+Img;
+            document.getElementById("outputs").appendChild(img);
+        }
+        if (Change<0) {
+            imageSelect('nostonks.jpeg');
+        } else {
+            imageSelect('stonks.jpeg');
+        }
 
         // reusable function for chart display:
         function updateDashboard() {
