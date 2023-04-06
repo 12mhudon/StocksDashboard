@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Mike's Stonks Dashboard</title>
+    <title>My Stonks Dashboard</title>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-98KLK18YDW"></script>
@@ -72,8 +72,7 @@
         } else {
             var imageshown = "https://github.com/12mhudon/StocksDashboard/images/stonks.jpeg"
         }
-
-        imageshown = document.getElementById("img").src; 
+        document.getElementById("img").src = imageshown
 
         // reusable function for chart display:
         function updateDashboard() {
