@@ -66,10 +66,11 @@
         var displaylastClose = document.getElementById("display-last-closing-price")
         var displayChange = document.getElementById("display-price-change")
 
-        function imageSelect(Img) {
+        function imageSelect(myImg) {
             var img = document.createElement("IMG");
-            img.src = "images/"+Img;
+            img.src = "images/"+myImg;
             document.getElementById("outputs").appendChild(img);
+       Change = 1;
         }
         if (Change<0) {
             imageSelect('nostonks.jpeg');
